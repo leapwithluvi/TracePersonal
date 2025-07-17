@@ -156,13 +156,16 @@ const FormEditChallenge = () => {
             >
               Type Challenge:
             </label>
-            <input
-              type="text"
-              placeholder="Daily goal, Weekly count, etc. (Daily, Weekly, Monthly)"
+            <select
               value={type}
               onChange={(e) => setType(e.target.value)}
               className="w-full px-4 py-2 border border-black-300 rounded"
-            />
+            >
+              <option value="">-- Type Daily goal --</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
           </div>
 
           <div class="flex items-start flex-col justify-start">
@@ -193,7 +196,7 @@ const FormEditChallenge = () => {
               onChange={(e) => setVisibility(e.target.value)}
               className="w-full px-4 py-2 border border-black-300 rounded"
             >
-              <option value="">Pilih Visibility</option>
+              <option value="">-- Pilih Visibility --</option>
               <option value="public">Public</option>
               <option value="private">Team</option>
             </select>
