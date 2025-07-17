@@ -1,0 +1,183 @@
+// Create User
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+  "name": "dgabs",
+  "email": "gabs@gmail.com",
+  "password": "1234",
+  "confirmPassword": "1234",
+  "role": "Admin",
+  "team": "Sabbath"
+}
+
+###
+// Get All Users
+GET http://localhost:5000/users
+
+###
+// Get Singel User
+GET http://localhost:5000/users/34daf17e-a653-4541-b5b3-eed8ca949cd2
+
+###
+// Update User
+PATCH http://localhost:5000/users/34daf17e-a653-4541-b5b3-eed8ca949cd2
+Content-Type: application/json
+
+{
+  "name": "Lusi",
+  "email": "kuro@gmail.com",
+  "password": "admin123",
+  "confirmPassword": "admin123",
+  "role": "user",
+  "team": "Paper Rex"
+}
+
+###
+// Delete User
+DELETE  http://localhost:5000/users/61f95553-a727-4ddb-8245-1d7a05885b98
+
+
+
+
+###
+// login user
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "sinta@gmail.com",
+  "password": "1234"
+}
+
+
+
+
+###
+// login admin
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "sinta@gmail.com",
+  "password": "admin123"
+}
+
+###
+// cek profile
+GET http://localhost:5000/me
+
+###
+//logout
+DELETE  http://localhost:5000/logout
+
+
+
+
+###
+// get all role
+GET http://localhost:5000/roles
+
+###
+// find role with id
+GET http://localhost:5000/roles/
+
+###
+// create role
+POST http://localhost:5000/roles
+Content-Type: application/json
+
+{
+  "name": "Manager"
+}
+
+###
+// updated role
+PATCH http://localhost:5000/roles/
+
+###
+// delete role
+DELETE http://localhost:5000/roles/4
+
+
+
+
+###
+// Get All challenge
+GET http://localhost:5000/challenges
+###
+// Get challenge By Id
+GET http://localhost:5000/challenges/3
+###
+// Create Challenge
+POST http://localhost:5000/challenges
+Content-Type: application/json
+
+  {
+    "title": "Tutorial Mandarin",
+    "description": "Dijamin 100% nggk cuman bisa ni hao doang",
+    "start_date": "2025-07-21T00:00:00.000Z",
+    "end_date": "2025-07-31T00:00:00.000Z",
+    "type": "Monthly",
+    "target": "Bisa HSK 1",
+    "visibility": "public"
+  }
+
+  ###
+  // updated Challenge
+PATCH http://localhost:5000/challenges
+Content-Type: application/json
+
+  {
+    "title": "Tutorial Mandarin",
+    "description": "Dijamin 100% nggk cuman bisa ni hao doang",
+    "start_date": "2025-07-21T00:00:00.000Z",
+    "end_date": "2025-07-31T00:00:00.000Z",
+    "type": "Monthly",
+    "target": "Bisa HSK 1",
+    "visibility": "public"
+  }
+
+###
+// deleted challenge
+DELETE http://localhost:5000/challenges
+
+
+
+
+###
+// Get All logday
+GET http://localhost:5000/logdays
+###
+// Get logday By Id
+GET http://localhost:5000/logdays/3
+###
+// Create logday
+POST http://localhost:5000/logdays
+Content-Type: application/json
+
+{
+  "date": "2025-07-21",
+  "water_intake": 2000,
+  "sleep_duration": 7,
+  "workout_completed": true,
+  "mood": 5,
+  "notes": "Hari ini sepertinya gacor"
+}
+
+###
+// update logday
+PATCH http://localhost:5000/logdays
+Content-Type: application/json
+{
+  "date": "2025-07-21",
+  "water_intake": 2000,
+  "sleep_duration": 7,
+  "workout_completed": true,
+  "mood": 5,
+  "notes": "Hari ini sepertinya gacor"
+}
+
+###
+// delete logdays
+DELETE http://localhost:5000/logdays
