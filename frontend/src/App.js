@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import Home from "./pages/Home";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Users from "./pages/Users";
 import Teams from "./pages/Teams";
 import Roles from "./pages/Roles";
@@ -25,6 +26,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
           <Route path="/users" element={<Users />} />
           <Route path="/teams" element={<Teams />} />

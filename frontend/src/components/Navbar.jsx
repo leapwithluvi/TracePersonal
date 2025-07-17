@@ -17,7 +17,7 @@ const Navbar = () => {
     dispatch(LogOut());
     dispatch(reset());
     const confirm = window.confirm(
-      "Apakah Anda yakin ingin menghapus data ini?"
+      "Apakah Anda yakin ingin logout?"
     );
     if (!confirm) return;
     navigate("/");

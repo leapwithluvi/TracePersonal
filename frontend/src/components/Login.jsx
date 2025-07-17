@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginUser, reset } from "../features/authSlice";
+
+// template: https://tailwindflex.com/@nejaa-badr
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -115,12 +117,12 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-            <a
-              href="https://tailwindflex.com/@nejaa-badr/registration-form"
+            <Link
+              to="/register"
               className="text-sm text-indigo-800 hover:text-blue-900 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors duration-300"
             >
               Create Account
-            </a>
+            </Link>
           </div>
 
           <button
