@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ChallengeAuthor from "./ChallengeAuthor";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import thumbnail from "../images/logo.png";
 import axios from "axios";
 
@@ -8,7 +8,29 @@ const DetailChallenge = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [typeChallenge, setTypeChallenge] = useState("");
+  const [targetChallenge, setTargetChallenge] = useState("");
+  const [visibility, setVisibility] = useState("");
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const deleteChallenge = async (challengeId) => {
+  const confirmDelete = window.confirm(
+    "Apakah Anda yakin ingin menghapus challenge ini?"
+  );
+  if (!confirmDelete) return;
+
+  try {
+    await axios.delete(`http://localhost:5000/challenges/${challengeId}`);
+    alert("Challenge berhasil dihapus!");
+    navigate("/challenges");
+  } catch (error) {
+    alert("Gagal menghapus challenge.");
+    console.error(error);
+  }
+};
 
   useEffect(() => {
     const getChallengeById = async () => {
@@ -19,6 +41,11 @@ const DetailChallenge = () => {
         setTitle(response.data.title);
         setDescription(response.data.description);
         setThumbnail(response.data.thumbnail);
+        setStartDate(response.data.start_date?.slice(0, 10));
+        setEndDate(response.data.end_date?.slice(0, 10));
+        setTypeChallenge(response.data.type);
+        setTargetChallenge(response.data.target);
+        setVisibility(response.data.visibility);
       } catch (error) {}
     };
     getChallengeById();
@@ -35,18 +62,32 @@ const DetailChallenge = () => {
             >
               Edit
             </Link>
-            <Link
-              to={`/challenge/id/delete`}
+            <button
+              onClick={() => deleteChallenge(id)}
               className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
             >
               Delete
-            </Link>
+            </button>
           </div>
         </div>
 
-        <h1 className="text-4xl font-bold mb-4 text-gray-800">
-          {title}
-        </h1>
+        <hr />
+
+        {/* start date and end date */}
+        <div className="mt-4 text-gray-600 mr-4">
+          <p>Start Date: {startDate}</p>
+          <p>End Date: {endDate}</p>
+
+          {/* type, target, visibility */}
+          <div className="text-gray-600 mb-4">
+            <p>Type Challenge : {typeChallenge}</p>
+            <p>Target Challenge : {targetChallenge}</p>
+            <p>Visibility : {visibility}</p>
+          </div>
+          <hr />
+        </div>
+
+        <h1 className="text-4xl font-bold mb-4 text-gray-800 mt-4">{title}</h1>
 
         <div className="mb-6 overflow-hidden rounded-lg max-h-96">
           <img

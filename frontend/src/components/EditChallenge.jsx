@@ -52,6 +52,7 @@ const FormEditChallenge = () => {
         target,
         visibility,
       });
+      alert("Challenge berhasil diupdate!");
       navigate("/challenges");
     } catch (error) {
       if (error.response) {
