@@ -274,7 +274,7 @@ const Navbar = () => {
         <div className="mt-auto p-4 border-t border-gray-700">
           <button
             onClick={logout}
-            className="w-full mb-4 flex items-center py-2 text-base font-medium rounded-md text-white bg-red-500 hover:bg-gray-700"
+            className="w-full bg-gray-700 mb-4 flex items-center py-2 text-base font-medium rounded-md text-white hover:bg-red-500"
           >
             <svg
               className="mr-3 h-6 w-6 text-white"
