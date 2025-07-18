@@ -11,6 +11,8 @@ import AuthRoute from "./routes/AuthRoute.js";
 import LogDayRoute from "./routes/LogDayRoute.js";
 import ChallengeRoute from "./routes/ChallengeRoute.js";
 import ChallengeEntryRoute from "./routes/ChallengeEntryRoute.js";
+import UploadRoute from "./routes/uploadRoute.js";
+import path from "path";
 
 dotenv.config();
 const app = express();
@@ -43,6 +45,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join("public/uploads")));
 
 app.use(UserRoute);
 app.use(RoleRoute);
@@ -51,6 +54,7 @@ app.use(AuthRoute);
 app.use(ChallengeRoute);
 app.use(LogDayRoute);
 app.use(ChallengeEntryRoute);
+app.use(UploadRoute);
 
 // store.sync();
 
