@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const FormAddUser = () => {
   const [name, setName] = useState("");
+  const [teams, setTeams] = useState([]);
   const [team, setTeam] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +30,15 @@ const FormAddUser = () => {
     };
     getUserById();
   }, [id]);
+
+  const getTeam = async () => {
+    const response = await axios.get("http://localhost:5000/teams");
+    setTeams(response.data);
+  };
+
+  useEffect(() => {
+    getTeam();
+  }, []);
 
   const updateUser = async (e) => {
     e.preventDefault();
@@ -72,14 +82,20 @@ const FormAddUser = () => {
               >
                 Team:
               </label>
-              <input
-                type="text"
+              <select
                 id="team"
                 name="team"
                 value={team}
                 onChange={(e) => setTeam(e.target.value)}
-                class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              />
+                className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              >
+                <option value="">-- Pilih Team --</option>
+                {teams.map((team) => (
+                  <option key={team.id} value={team.name}>
+                    {team.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div class="flex items-start flex-col justify-start">

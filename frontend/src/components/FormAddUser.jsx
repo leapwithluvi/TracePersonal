@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// tapi sebelumnya saya sudah masukkan data user apakah kalau ganti tidak menyebabkan error?
+
 const FormAddUser = () => {
   const [name, setName] = useState("");
+  const [teams, setTeams] = useState([]);
   const [team, setTeam] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,12 +32,21 @@ const FormAddUser = () => {
     }
   };
 
+  const getTeam = async () => {
+    const response = await axios.get("http://localhost:5000/teams");
+    setTeams(response.data);
+  };
+
+    useEffect(() => {
+      getTeam();
+    }, []);
+
   return (
     <div>
       <h1 className="text-4xl font-semibold text-gray-900">Add User</h1>
       <div className="mt-4 p-6 bg-white rounded-lg shadow-md">
-        <div class="max-w-lg mx-auto  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
-          <h1 class="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
+        <div className="max-w-lg mx-auto  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
+          <h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
             Add New User
           </h1>
           <form
@@ -54,14 +64,20 @@ const FormAddUser = () => {
               >
                 Team:
               </label>
-              <input
-                type="text"
+              <select
                 id="team"
                 name="team"
                 value={team}
                 onChange={(e) => setTeam(e.target.value)}
-                class="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              />
+                className="w-full px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              >
+                <option value="">-- Pilih Team --</option>
+                {teams.map((team) => (
+                  <option key={team.id} value={team.name}>
+                    {team.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div class="flex items-start flex-col justify-start">

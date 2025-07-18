@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+// template: https://tailwindflex.com/@abdulbast/cta-call-to-action-section
+
 const Welcome = () => {
   const { user } = useSelector((state) => state.auth);
   return (
