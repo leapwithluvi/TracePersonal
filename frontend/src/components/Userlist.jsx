@@ -10,20 +10,26 @@ const Userlist = () => {
   }, []);
 
   const getUsers = async () => {
-    const response = await axios.get("http://localhost:5000/users");
-    setUsers(response.data);
+    try {
+      const response = await axios.get("http://localhost:5000/users");
+      
+      setUsers(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteUser = async (userId) => {
-    console.log("UUID:", userId);
-
     const confirm = window.confirm(
       "Apakah Anda yakin ingin menghapus data ini?"
     );
     if (!confirm) return;
-
-    await axios.delete(`http://localhost:5000/users/${userId}`);
-    getUsers();
+    try {
+      await axios.delete(`http://localhost:5000/users/${userId}`);
+      getUsers();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -37,7 +43,7 @@ const Userlist = () => {
         </Link>
       </div>
       <div className="mt-4 p-6 bg-white rounded-lg shadow-md">
-        <p classNames="text-2xl text-gray-600">List Data User: </p>
+        <p className="text-2xl text-gray-600">List Data User: </p>
         <div className="flex flex-col">
           <div className=" overflow-x-auto pb-4">
             <div className="min-w-full inline-block align-middle">
@@ -80,7 +86,6 @@ const Userlist = () => {
                         {" "}
                         Join Date{" "}
                       </th>
-                      {/* <th scope="col" className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"> Status </th> */}
                       <th
                         scope="col"
                         className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
@@ -91,7 +96,7 @@ const Userlist = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-300 ">
-                    {users?.map((user, index) => (
+                    {users.map((user, index) => (
                       <tr
                         className="bg-white transition-all duration-500 hover:bg-gray-50"
                         key={user.uuid}
@@ -122,9 +127,9 @@ const Userlist = () => {
                           {user.updateAt}
                         </td>
                         <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
-                          <td className="flex p-5 items-center gap-1.5">
+                          <div className="flex p-5 items-center gap-1.5">
                             <Link
-                              to={`/users/edit/${user.id}`}
+                              to={`/users/edit/${user.uuid}`}
                               className="p-2  rounded-full bg-white group transition-all duration-500 hover:bg-indigo-600 flex item-center"
                             >
                               <svg
@@ -143,7 +148,7 @@ const Userlist = () => {
                               </svg>
                             </Link>
                             <button
-                              onClick={() => deleteUser(user.id)}
+                              onClick={() => deleteUser(user.uuid)}
                               className="p-2 rounded-full bg-white group transition-all duration-500 hover:bg-red-600 flex item-center"
                             >
                               <svg
@@ -161,7 +166,7 @@ const Userlist = () => {
                                 ></path>
                               </svg>
                             </button>
-                          </td>
+                          </div>
                         </td>
                       </tr>
                     ))}
