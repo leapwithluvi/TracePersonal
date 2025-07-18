@@ -1,29 +1,35 @@
+// SAYA INGIN JIKA USER TIDAK ADA UPDATE DARI NAMA GMAIL NEW PASSWORD & CONFIRM PASSWORD DARI SALAH SATUNYA MAKA JIKA USER MENEKAN TOMBOL UPDATE MAKA DIA ADA PERINGATAN ANDA BELUM BISA MEMPERBAHARUI DATA KARENA TIDAK ADA DATA BARU, LALU JIKA USER SUDAH ISI DATA SEBAGIAN YANG INGIN DIA UBAH MAKA KASIH DIA CONFIRM DAN JIKA DIA CONFIRM MAKA PINDAHKAN DIA KE HALAMAN "/" 
+
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Avatar from "../images/logo.png";
+import { useNavigate } from "react-router-dom";
 import { FaEdit, FaCheck } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Profile = () => {
   const [avatar, setAvatar] = useState(Avatar);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  // const [cureentPassword, setCurrentPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [team, setTeam] = useState("");
   const [NewPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const { user } = useSelector((state) => state.auth);
-  const { id } = useParams();
+  const [userId, setUserId] = useState("");
   const [msg, setMsg] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUserById = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/users/${id}`);
+        const response = await axios.get(`http://localhost:5000/me`);
         setName(response.data.name);
-        setEmail(response.data.setEmail);
-        setNewPassword(response.data.NewPassword);
-        setConfirmNewPassword(response.data.confirmNewPassword);
+        setEmail(response.data.email);
+        setRole(response.data.role);
+        setTeam(response.data.team);
+        setNewPassword(response.data.password);
+        setConfirmNewPassword(response.data.confirmPassword);
+        setUserId(response.data.uuid);
       } catch (error) {
         if (error.response) {
           setMsg(error.response.data.msg);
@@ -31,17 +37,25 @@ const Profile = () => {
       }
     };
     getUserById();
-  }, [id]);
+  }, []);
 
   const updateUser = async (e) => {
     e.preventDefault();
+    const confirm = window.confirm;
     try {
-      await axios.patch(`http://localhost:5000/users/${id}`, {
+      await axios.patch(`http://localhost:5000/users/${userId}`, {
         name,
         email,
-        NewPassword,
-        confirmNewPassword,
+        password: NewPassword,
+        confirmPassword: confirmNewPassword,
       });
+      if (!updateUser === "") {
+        alert("anda belum melakukan perubahan!");
+        navigate("/profile");
+      } else {
+        confirm("Apakah Anda yakin ingin melakukan perubahan?");
+        navigate("/");
+      }
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);
@@ -71,13 +85,13 @@ const Profile = () => {
             </div>
 
             {/* Edit Button */}
-            <form className="absolute right-1 bottom-1">
+            <form className="absolute right-1 bottom-1" onSubmit={updateUser}>
               <input
                 type="file"
                 name="avatar"
                 id="avatar"
                 className="hidden"
-                accept="png, jpeg, jpg" 
+                accept="png, jpeg, jpg"
                 onChange={(e) => setAvatar(e.target.files[0])}
               />
               <label
@@ -97,55 +111,106 @@ const Profile = () => {
           </div>
 
           {/* Nama User */}
-          {user && (
-            <h1 className="mt-4 text-3xl font-bold text-gray-800 mb-12">
-              {user.name}
-            </h1>
-          )}
+
+          <h1 className="mt-4 text-3xl font-bold text-gray-800 mb-12">
+            {name}
+          </h1>
 
           {/* form profile__form */}
           <form className="mx-32" onSubmit={updateUser}>
-            <p className="block sm:inline text-center text-red-600 dark mb-6">
+            <p className="block sm:inline text-center text-red-600 dark">
               {msg}
             </p>
+
+            <label
+              htmlFor="username"
+              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+            >
+              Username:
+            </label>
             <input
-              className="shadow-sm rounded-lg w-full px-4 lg:mb-2 md:mb-2 sm:mb-24 py-2.5 mb-2 border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-800 dark:focus:ring-blue-900 transition-all duration-300"
               type="text"
               placeholder="Username"
+              id="username"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
+
+            <label
+              htmlFor="email"
+              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+            >
+              Email:
+            </label>
             <input
-              className="shadow-sm rounded-lg w-full  px-4 py-2.5 mb-2 border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-800 dark:focus:ring-blue-900 transition-all duration-300"
               type="email"
               placeholder="Email"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
-            {/* <input
-              className="shadow-sm rounded-lg w-full px-4 py-2.5 mb-2 border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-800 dark:focus:ring-blue-900 transition-all duration-300"
-              type="password"
-              placeholder="Current Password"
-              value={cureentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-            /> */}
+
+            <label
+              htmlFor="role"
+              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+            >
+              Role:
+            </label>
             <input
-              className="shadow-sm rounded-lg w-full px-4 py-2.5 mb-2 border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-800 dark:focus:ring-blue-900 transition-all duration-300"
+              type="text"
+              id="role"
+              value={role}
+              readOnly
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+            />
+
+            <label
+              htmlFor="team"
+              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+            >
+              Team:
+            </label>
+            <input
+              type="text"
+              id="team"
+              value={team}
+              readOnly
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+            />
+
+            <label
+              htmlFor="password"
+              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+            >
+              New Password:
+            </label>
+            <input
               type="password"
               placeholder="New Password"
               value={NewPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
+
+            <label
+              htmlFor="team"
+              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+            >
+              Confirm Password:
+            </label>
             <input
-              className="shadow-sm rounded-lg w-full px-4 py-2.5 mb-2 border border-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-800 dark:focus:ring-blue-900 transition-all duration-300"
               type="password"
               placeholder="Confirm New Password"
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
+
             <button
               type="submit"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4"
             >
               Update my Profile
             </button>
