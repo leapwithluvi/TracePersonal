@@ -90,13 +90,13 @@ const Users = () => {
               className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 flex flex-col items-center gap-2 transition-all hover:shadow-lg"
             >
               <Link
-                to={user.id.toString()}
+                to={`/profile/${user.uuid}`}
                 className="flex flex-col items-center text-center gap-2 w-full"
               >
                 <div className="w-16 h-16 rounded-full overflow-hidden shadow-lg border-2 border-gray-300 dark:border-gray-600">
                   <img
                     src={Avatar}
-                    alt="ini pp admin"
+                    alt="ini pp yah"
                     className="w-full h-full object-cover"
                   />
                 </div>
