@@ -23,10 +23,7 @@ const Challenges = db.define("challenges", {
   },
   thumbnail: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    allowNull: true,
   },
   description: {
     type: DataTypes.STRING,

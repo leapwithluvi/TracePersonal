@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const CreateChallenge = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [image, setThumbnail] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [type, setType] = useState("");
@@ -15,7 +15,29 @@ const CreateChallenge = () => {
   const [visibility, setVisibility] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  const { id } = useParams();
+
+  const saveChallenge = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:5000/challenges", {
+        title,
+        description,
+        start_date: startDate,
+        end_date: endDate,
+        type,
+        target,
+        visibility,
+        image,
+      });
+      alert("Challenge berhasil dibuat!");
+      navigate("/challenges");
+    } catch (error) {
+      if (error.response) {
+        setMsg(error.response.data.msg);
+      }
+      console.log("Server error:", error.response.data);
+    }
+  };
 
   const modules = {
     toolbar: [
@@ -45,31 +67,14 @@ const CreateChallenge = () => {
     "link",
     "image",
   ];
-
-  const saveChallenge = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/challenges", {
-        title,
-        description,
-        thumbnail,
-      });
-      navigate("/challenges");
-    } catch (error) {
-      if (error.response) {
-        setMsg(error.response.data.msg);
-      }
-    }
-  };
-
   return (
     <section className="min-h-screen bg-gray-100 flex items-center justify-center py-10">
       <div className="w-full max-w-2xl bg-white p-8 rounded shadow">
         <h2 className="text-2xl font-semibold mb-4">Create Challenge</h2>
 
         {/* <div className="bg-red-500 text-white px-4 py-2 rounded mb-4">
-            This is an error message
-          </div> */}
+          This is an error message
+        </div> */}
 
         <form className="space-y-4" onSubmit={saveChallenge}>
           <input
@@ -129,13 +134,16 @@ const CreateChallenge = () => {
             >
               Type Challenge:
             </label>
-            <input
-              type="text"
-              placeholder="Daily goal, Weekly count, etc. (Daily, Weekly, Monthly)"
+            <select
               value={type}
               onChange={(e) => setType(e.target.value)}
               className="w-full px-4 py-2 border border-black-300 rounded"
-            />
+            >
+              <option value="">-- Type Daily goal --</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
           </div>
 
           <div class="flex items-start flex-col justify-start">
@@ -166,9 +174,9 @@ const CreateChallenge = () => {
               onChange={(e) => setVisibility(e.target.value)}
               className="w-full px-4 py-2 border border-black-300 rounded"
             >
-              <option value="">Pilih Visibility</option>
+              <option value="">-- Pilih Visibility --</option>
               <option value="public">Public</option>
-              <option value="private">Team</option>
+              <option value="team">Team</option>
             </select>
           </div>
 
@@ -176,7 +184,7 @@ const CreateChallenge = () => {
           <input
             type="file"
             onChange={(e) => setThumbnail(e.target.files[0])}
-            accept="image/png, image/jpg, image/jpeg"
+            accept="png, jpg, jpeg"
             className="block"
           />
 

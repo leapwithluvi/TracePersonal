@@ -173,6 +173,12 @@ const Navbar = () => {
                     >
                       Roles
                     </NavLink>
+                    <NavLink
+                      to="/challenge/add"
+                      className="block text-sm text-gray-300 hover:text-white"
+                    >
+                      Challange
+                    </NavLink>
                   </div>
                 )}
               </div>
