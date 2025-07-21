@@ -19,6 +19,7 @@ import Profiles from "./pages/Profiles";
 import ChallengeDetail from "./pages/ChallengeDetail";
 import EditChallenge from "./pages/EditChallenge";
 import ChallengeItem from "./pages/CardChallenges";
+import AllUsers from "./pages/AllUsers";
 
 export default function App() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/top-individuals" element={<TopIndividuals />} />
           <Route path="/top-teams" element={<TopTeams />} />
           <Route path="/challenges/:id" element={<ChallengeDetail />} />
+          <Route path="/all-users" element={<AllUsers />} />
         </Routes>
       </BrowserRouter>
     </div>

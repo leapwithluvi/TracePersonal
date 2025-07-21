@@ -16,9 +16,7 @@ const Navbar = () => {
   const logout = () => {
     dispatch(LogOut());
     dispatch(reset());
-    const confirm = window.confirm(
-      "Apakah Anda yakin ingin logout?"
-    );
+    const confirm = window.confirm("Apakah Anda yakin ingin logout?");
     if (!confirm) return;
     navigate("/");
   };
@@ -108,8 +106,29 @@ const Navbar = () => {
                 d="M12 6v6l4 2m6 0a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-
             {!collapsed && <span className="sidebar-text">Challenges</span>}
+          </NavLink>
+
+          <NavLink
+            to="/all-users"
+            className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+          >
+            <svg
+              className="mr-3 h-6 w-6 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M13 20V18C13 15.2386 10.7614 13 8 13C5.23858 13 3 15.2386 3 18V20H13ZM13 20H21V19C21 16.0545 18.7614 14 16 14C14.5867 14 13.3103 14.6255 12.4009 15.6311M11 7C11 8.65685 9.65685 10 8 10C6.34315 10 5 8.65685 5 7C5 5.34315 6.34315 4 8 4C9.65685 4 11 5.34315 11 7ZM18 9C18 10.1046 17.1046 11 16 11C14.8954 11 14 10.1046 14 9C14 7.89543 14.8954 7 16 7C17.1046 7 18 7.89543 18 9Z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            {!collapsed && <span className="sidebar-text">Users</span>}
           </NavLink>
 
           {/* Datas Dropdown */}
@@ -127,13 +146,17 @@ const Navbar = () => {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
+                    <g id="System / Data">
+                      <path
+                        id="Vector"
+                        d="M18 12V17C18 18.6569 15.3137 20 12 20C8.68629 20 6 18.6569 6 17V12M18 12V7M18 12C18 13.6569 15.3137 15 12 15C8.68629 15 6 13.6569 6 12M18 7C18 5.34315 15.3137 4 12 4C8.68629 4 6 5.34315 6 7M18 7C18 8.65685 15.3137 10 12 10C8.68629 10 6 8.65685 6 7M6 12V7"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
                   </svg>
+
                   {!collapsed && <span className="sidebar-text">Data</span>}
                   {!collapsed && (
                     <svg
