@@ -11,8 +11,8 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/users", verifyUser, adminOnly, getUsers);
-router.get("/users/:id", verifyUser, adminOnly, getUserById);
+router.get("/users", verifyUser, getUsers);
+router.get("/users/:id", verifyUser, getUserById);
 router.post("/users/", createUser);
 router.patch("/users/:id", verifyUser, updateUser);
 router.delete("/users/:id", verifyUser, adminOnly, deleteUser);
