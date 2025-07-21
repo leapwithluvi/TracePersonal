@@ -33,6 +33,7 @@ export default function App() {
           <Route path="/teams" element={<Teams />} />
           <Route path="/roles" element={<Roles />} />
           <Route path="/profile" element={<Profiles />} />
+          <Route path="/profile/:id" element={<Profiles />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/users/add" element={<AddUser />} />
           <Route path="/users/edit/:id" element={<EditUser />} />
