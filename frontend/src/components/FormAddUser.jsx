@@ -43,10 +43,10 @@ const FormAddUser = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-semibold text-gray-900">Add User</h1>
-      <div className="mt-4 p-6 bg-white rounded-lg shadow-md">
+      {/* <h1 className="text-4xl font-semibold text-white">Add User</h1> */}
+      <div className="mt-4 p-6 dark:bg-gray-900 rounded-lg shadow-md">
         <div className="max-w-lg mx-auto  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
-          <h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
+          <h1 className="text-xl font-bold text-center text-white dark:text-gray-200 mb-8">
             Add New User
           </h1>
           <form

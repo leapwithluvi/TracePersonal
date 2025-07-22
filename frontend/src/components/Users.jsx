@@ -37,7 +37,7 @@ const Users = () => {
 
   return (
     <div className="px-6 py-4">
-      <h1 className="text-4xl font-semibold text-gray-900 mb-4">Users</h1>
+      <h1 className="text-4xl font-semibold text-gray-900 mb-4 text-white">Users</h1>
 
       <form className="max-w-md mb-6" onSubmit={(e) => e.preventDefault()}>
         <label

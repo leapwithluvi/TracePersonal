@@ -33,7 +33,7 @@ const Userlist = () => {
   };
   return (
     <div>
-      <h1 className="text-4xl font-semibold text-gray-900">Users</h1>
+      <h1 className="text-4xl font-semibold text-white text-white">Users</h1>
       <div className="mt-4">
         <Link
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
@@ -42,53 +42,53 @@ const Userlist = () => {
           Create User
         </Link>
       </div>
-      <div className="mt-4 p-6 bg-white rounded-lg shadow-md">
-        <p className="text-2xl text-gray-600">List Data User: </p>
+      <div className="mt-4 p-6 dark:bg-gray-800 rounded-lg shadow-md">
+        <p className="text-2xl text-white-600 text-white mb-4">List Data User: </p>
         <div className="flex flex-col">
           <div className=" overflow-x-auto pb-4">
             <div className="min-w-full inline-block align-middle">
               <div className="overflow-hidden  border rounded-lg border-gray-300">
                 <table className="table-auto min-w-full rounded-xl">
                   <thead>
-                    <tr className="bg-gray-50">
+                    <tr className="dark:bg-gray-800">
                       <th className=""></th>
                       <th
                         scope="col"
-                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize text-white"
                       >
                         {" "}
                         Team{" "}
                       </th>
                       <th
                         scope="col"
-                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize text-white"
                       >
                         {" "}
                         User ID{" "}
                       </th>
                       <th
                         scope="col"
-                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize min-w-[150px]"
+                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize min-w-[150px] text-white"
                       >
                         {" "}
                         Username &amp; Email{" "}
                       </th>
                       <th
                         scope="col"
-                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize text-white"
                       >
                         Role{" "}
                       </th>
                       <th
                         scope="col"
-                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize text-white"
                       >
                         {" "}
                         Join Date{" "}
                       </th>
                       <th
                         scope="col"
-                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        className="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize text-white"
                       >
                         {" "}
                         Actions{" "}
@@ -98,35 +98,35 @@ const Userlist = () => {
                   <tbody className="divide-y divide-gray-300 ">
                     {users.map((user, index) => (
                       <tr
-                        className="bg-white transition-all duration-500 hover:bg-gray-50"
+                        className="dark:bg-gray-800 transition-all duration-500s hover:bg-gray-700 text-white shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                         key={user.uuid}
                       >
                         <td className=""></td>
-                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
+                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white ">
                           {user.team}
                         </td>
-                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white">
                           {index + 1}
                         </td>
                         <td className=" px-5 py-3">
                           <div className="w-48 flex items-center gap-3">
                             <div className="data">
-                              <p className="font-normal text-sm text-gray-900">
+                              <p className="font-normal text-sm text-white">
                                 {user.name}
                               </p>
-                              <p className="font-normal text-xs leading-5 text-gray-400">
+                              <p className="font-normal text-xs leading-5 text-white">
                                 {user.email}
                               </p>
                             </div>
                           </div>
                         </td>
-                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white">
                           {user.role}
                         </td>
-                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white">
                           {user.updateAt}
                         </td>
-                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                        <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white">
                           <div className="flex p-5 items-center gap-1.5">
                             <Link
                               to={`/users/edit/${user.uuid}`}
