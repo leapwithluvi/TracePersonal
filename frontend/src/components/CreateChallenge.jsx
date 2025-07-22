@@ -68,9 +68,9 @@ const CreateChallenge = () => {
     "image",
   ];
   return (
-    <section className="min-h-screen bg-gray-100 flex items-center justify-center py-10">
-      <div className="w-full max-w-2xl bg-white p-8 rounded shadow">
-        <h2 className="text-2xl font-semibold mb-4">Create Challenge</h2>
+    <section className="min-h-screen bg-[#F9F9F9] dark:bg-gray-900 flex items-center justify-center py-10">
+      <div className="w-full max-w-2xl dark:bg-gray-800 p-8 shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
+        <h2 className="text-2xl font-semibold mb-4 text-white">Create Challenge</h2>
 
         {/* <div className="bg-red-500 text-white px-4 py-2 rounded mb-4">
           This is an error message
@@ -100,7 +100,7 @@ const CreateChallenge = () => {
           <div class="flex items-start flex-col justify-start">
             <label
               for="start_date"
-              class="text-sm text-black-700 dark:text-black-200 mr-2"
+              class="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
             >
               Start Challenge:
             </label>
@@ -115,7 +115,7 @@ const CreateChallenge = () => {
           <div class="flex items-start flex-col justify-start">
             <label
               for="end_date"
-              class="text-sm text-black-700 dark:text-black-200 mr-2"
+              class="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
             >
               End Challenge:
             </label>
@@ -130,7 +130,7 @@ const CreateChallenge = () => {
           <div class="flex items-start flex-col justify-start">
             <label
               for="type"
-              class="text-sm text-black-700 dark:text-black-200 mr-2"
+              class="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
             >
               Type Challenge:
             </label>
@@ -149,7 +149,7 @@ const CreateChallenge = () => {
           <div class="flex items-start flex-col justify-start">
             <label
               for="target"
-              class="text-sm text-black-700 dark:text-black-200 mr-2"
+              class="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
             >
               Target Challenge:
             </label>
@@ -165,7 +165,7 @@ const CreateChallenge = () => {
           <div class="flex items-start flex-col justify-start">
             <label
               for="visibility"
-              class="text-sm text-black-700 dark:text-black-200 mr-2"
+              class="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
             >
               Visibility:
             </label>
@@ -185,7 +185,7 @@ const CreateChallenge = () => {
             type="file"
             onChange={(e) => setThumbnail(e.target.files[0])}
             accept="png, jpg, jpeg"
-            className="block"
+            className="block text-white "
           />
 
           <button

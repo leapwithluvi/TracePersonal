@@ -8,7 +8,7 @@ const ChallengeAuthor = () => {
       <div className="w-10 aspect-square rounded-full shadow-md">
         <img src={Avatar} alt="" />
       </div>
-      <div className="challenge__auhtor-details">
+      <div className="text-white">
         <h5>by: John Doe</h5>
       </div>
     </Link>

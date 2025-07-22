@@ -17,20 +17,20 @@ const DetailChallenge = () => {
   const navigate = useNavigate();
 
   const deleteChallenge = async (challengeId) => {
-  const confirmDelete = window.confirm(
-    "Apakah Anda yakin ingin menghapus challenge ini?"
-  );
-  if (!confirmDelete) return;
+    const confirmDelete = window.confirm(
+      "Apakah Anda yakin ingin menghapus challenge ini?"
+    );
+    if (!confirmDelete) return;
 
-  try {
-    await axios.delete(`http://localhost:5000/challenges/${challengeId}`);
-    alert("Challenge berhasil dihapus!");
-    navigate("/challenges");
-  } catch (error) {
-    alert("Gagal menghapus challenge.");
-    console.error(error);
-  }
-};
+    try {
+      await axios.delete(`http://localhost:5000/challenges/${challengeId}`);
+      alert("Challenge berhasil dihapus!");
+      navigate("/challenges");
+    } catch (error) {
+      alert("Gagal menghapus challenge.");
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const getChallengeById = async () => {
@@ -51,8 +51,8 @@ const DetailChallenge = () => {
     getChallengeById();
   }, [id]);
   return (
-    <section className="bg-gray-100 py-10 px-14">
-      <div className="max-w-screen-md mx-44 bg-white rounded-xl shadow-md p-6">
+    <section className="min-h-screen bg-[#F9F9F9] dark:bg-gray-900 py-10 px-14 ">
+      <div className="max-w-screen-md mx-44 dark:bg-gray-800 rounded-xl shadow-md p-6 ">
         <div className="flex justify-between items-center mb-6">
           <ChallengeAuthor />
           <div className="flex gap-4 items-center">
@@ -74,12 +74,12 @@ const DetailChallenge = () => {
         <hr />
 
         {/* start date and end date */}
-        <div className="mt-4 text-gray-600 mr-4">
+        <div className="mt-4 text-white mr-4">
           <p>Start Date: {startDate}</p>
           <p>End Date: {endDate}</p>
 
           {/* type, target, visibility */}
-          <div className="text-gray-600 mb-4">
+          <div className="text-white mb-4">
             <p>Type Challenge : {typeChallenge}</p>
             <p>Target Challenge : {targetChallenge}</p>
             <p>Visibility : {visibility}</p>
@@ -87,17 +87,17 @@ const DetailChallenge = () => {
           <hr />
         </div>
 
-        <h1 className="text-4xl font-bold mb-4 text-gray-800 mt-4">{title}</h1>
+        <h1 className="text-4xl font-bold mb-4 text-white mt-4">{title}</h1>
 
         <div className="mb-6 overflow-hidden rounded-lg max-h-96">
           <img
             src={thumbnail}
             alt="Challenge Thumbnail"
-            className="w-full object-cover"
+            className="w-full object-cover text-white"
           />
         </div>
 
-        <div className="space-y-4 text-gray-700 leading-relaxed">
+        <div className="space-y-4 text-white leading-relaxed">
           {description}
         </div>
       </div>
