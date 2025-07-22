@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut, reset } from "../features/authSlice";
+import avatar from "../images/logo.png";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -86,12 +87,16 @@ const Navbar = () => {
                 d="M3 12l2-2m0 0l7-7 7 7M5 10v10h3m10-11l2 2m-2-2v10h-3m-6 0v-4h4v4m-6 0h6"
               />
             </svg>
-            {!collapsed && <span className="sidebar-text">Home</span>}
+            {!collapsed && (
+              <span className="sidebar-text  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
+                Home
+              </span>
+            )}
           </NavLink>
 
           <NavLink
             to="/challenges"
-            className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+            className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
           >
             <svg
               className="mr-3 h-6 w-6 text-gray-400"
@@ -106,12 +111,16 @@ const Navbar = () => {
                 d="M12 6v6l4 2m6 0a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            {!collapsed && <span className="sidebar-text">Challenges</span>}
+            {!collapsed && (
+              <span className="sidebar-text  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
+                Challenges
+              </span>
+            )}
           </NavLink>
 
           <NavLink
             to="/all-users"
-            className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+            className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
           >
             <svg
               className="mr-3 h-6 w-6 text-gray-400"
@@ -128,7 +137,7 @@ const Navbar = () => {
               />
             </svg>
 
-            {!collapsed && <span className="sidebar-text">Users</span>}
+            {!collapsed && <span className="sidebar-text ">Users</span>}
           </NavLink>
 
           {/* Datas Dropdown */}
@@ -137,7 +146,7 @@ const Navbar = () => {
               <div>
                 <button
                   onClick={() => toggleDropdown("datas")}
-                  className="dropdown-btn w-full flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+                  className="dropdown-btn w-full flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                 >
                   <svg
                     className="mr-3 h-6 w-6 text-gray-400"
@@ -179,26 +188,26 @@ const Navbar = () => {
                   <div className="pl-10 space-y-1 mt-1">
                     <NavLink
                       to="/users"
-                      className="block text-sm text-gray-300 hover:text-white"
+                      className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                     >
                       Users
                     </NavLink>
 
                     <NavLink
                       to="/teams"
-                      className="block text-sm text-gray-300 hover:text-white"
+                      className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                     >
                       Teams
                     </NavLink>
                     <NavLink
                       to="/roles"
-                      className="block text-sm text-gray-300 hover:text-white"
+                      className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                     >
                       Roles
                     </NavLink>
                     <NavLink
                       to="/challenge/add"
-                      className="block text-sm text-gray-300 hover:text-white"
+                      className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                     >
                       Challange
                     </NavLink>
@@ -214,7 +223,7 @@ const Navbar = () => {
             <div>
               <button
                 onClick={() => toggleDropdown("leaderboards")}
-                className="dropdown-btn w-full flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+                className="dropdown-btn w-full flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
               >
                 <svg
                   className="mr-3 h-6 w-6 text-gray-400"
@@ -254,13 +263,13 @@ const Navbar = () => {
                 <div className="pl-10 space-y-1 mt-1">
                   <NavLink
                     to="/top-individuals"
-                    className="block text-sm text-gray-300 hover:text-white"
+                    className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                   >
                     Top Individuals
                   </NavLink>
                   <NavLink
                     to="/top-teams"
-                    className="block text-sm text-gray-300 hover:text-white"
+                    className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                   >
                     Top Teams
                   </NavLink>
@@ -271,7 +280,7 @@ const Navbar = () => {
           {/* )} */}
 
           {/* Settings */}
-          <Link
+          {/* <Link
             to="#"
             class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
           >
@@ -296,7 +305,7 @@ const Navbar = () => {
               />
             </svg>
             {!collapsed && <span className="sidebar-text">Settings</span>}
-          </Link>
+          </Link> */}
         </nav>
 
         {/* Footer */}
@@ -325,7 +334,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <img
               className="h-8 w-8 rounded-full"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+              src={avatar}
               alt="Foto Profile"
             />
             {!collapsed && (
