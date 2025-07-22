@@ -19,6 +19,16 @@ const Challenge = () => {
 
   return (
     <section className="challenges">
+      <div>
+        <h1 className="text-white text-4xl font-sans font-bold mb-2">Challenges</h1>
+        <p className="text-white text-sm font-sans mb-8 text-justify">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate,
+          recusandae odio! <br /> Amet nobis tempore quidem aspernatur magnam
+          incidunt ipsa expedita est, ipsum illum! <br /> Fugiat, soluta.
+          Facilis corporis ab quod maiores?
+        </p>
+        <hr className="mb-8"/>
+      </div>
       {challenges.length > 0 ? (
         <div className="container grid grid-cols-3 gap-16">
           {challenges.map((challenge) => (

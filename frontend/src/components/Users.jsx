@@ -46,7 +46,7 @@ const Users = () => {
         >
           Search
         </label>
-        <div className="relative">
+        <div className="relative ">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
               className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -87,7 +87,7 @@ const Users = () => {
           filteredUsers.map((user) => (
             <div
               key={user.id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 flex flex-col items-center gap-2 transition-all hover:shadow-lg"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 flex flex-col items-center gap-2 transition-all hover:bg-gray-700 shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.05] animate-fade-in"
             >
               <Link
                 to={`/profile/${user.uuid}`}
