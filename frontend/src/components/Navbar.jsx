@@ -12,7 +12,6 @@ const Navbar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [openDropdown, setOpenDropdown] = useState({
     datas: false,
-    leaderboards: false,
   });
   const logout = () => {
     dispatch(LogOut());
@@ -140,6 +139,30 @@ const Navbar = () => {
             {!collapsed && <span className="sidebar-text ">Users</span>}
           </NavLink>
 
+          <NavLink
+            to="/leaderboards"
+            className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
+          >
+            <svg
+              className="mr-3 h-6 w-6 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 3v18h18M7 16l4-4 3 3 4-6"
+              />
+            </svg>
+            {!collapsed && (
+              <span className="sidebar-text  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
+                Leaderboards
+              </span>
+            )}
+          </NavLink>
+
           {/* Datas Dropdown */}
           {user && user.role.toLowerCase() === "admin" && (
             <div>
@@ -217,66 +240,8 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* Leaderboards Dropdown */}
           {/* {user && user.role.toLowerCase() === "admin" && ( */}
-          <div>
-            <div>
-              <button
-                onClick={() => toggleDropdown("leaderboards")}
-                className="dropdown-btn w-full flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
-              >
-                <svg
-                  className="mr-3 h-6 w-6 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 3v18h18M7 16l4-4 3 3 4-6"
-                  />
-                </svg>
 
-                {!collapsed && (
-                  <span className="sidebar-text">Leaderboard</span>
-                )}
-                {!collapsed && (
-                  <svg
-                    className={`ml-auto h-5 w-5 transition-transform ${
-                      openDropdown.leaderboards ? "rotate-180" : ""
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </button>
-              {!collapsed && openDropdown.leaderboards && (
-                <div className="pl-10 space-y-1 mt-1">
-                  <NavLink
-                    to="/top-individuals"
-                    className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
-                  >
-                    Top Individuals
-                  </NavLink>
-                  <NavLink
-                    to="/top-teams"
-                    className="block text-sm text-gray-300 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
-                  >
-                    Top Teams
-                  </NavLink>
-                </div>
-              )}
-            </div>
-          </div>
           {/* )} */}
 
           {/* Settings */}

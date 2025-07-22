@@ -4,6 +4,7 @@ import TopTeam from "../components/TopTeam";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
+import Leaderboards from "../components/Leaderboards";
 
 const TopTeams = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,9 @@ const TopTeams = () => {
   }, [isError, navigate]);
   return (
     <Layout>
-      <TopTeam />
+      <Leaderboards>
+        <TopTeam />
+      </Leaderboards>
     </Layout>
   );
 };
