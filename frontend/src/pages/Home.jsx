@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import Layout from "./Layout";
 import Welcome from "../components/Welcome";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../features/authSlice";
+import LayoutBaru from "./LayoutBaru";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,9 +21,9 @@ const Home = () => {
   }, [isError, navigate]);
 
   return (
-    <Layout>
+    <LayoutBaru>
       <Welcome />
-    </Layout>
+    </LayoutBaru>
   );
 };
 
