@@ -25,7 +25,7 @@ const TeamList = () => {
   };
   return (
     <div>
-      <h1 className="text-4xl font-semibold text-gray-900">Teams</h1>
+      <h1 className="text-4xl font-semibold text-white">Teams</h1>
       <div className="mt-4">
         <Link
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
@@ -34,47 +34,47 @@ const TeamList = () => {
           Create Team
         </Link>
       </div>
-      <div className="mt-4 p-6 bg-white rounded-lg shadow-md">
-        <p className="text-2xl text-gray-600">List Data Team: </p>
+      <div className="mt-4 p-6 dark:bg-gray-800 rounded-lg shadow-md">
+        <p className="text-2xl text-white text-white mb-4">List Data Team: </p>
         <div class="flex flex-col">
           <div class=" overflow-x-auto pb-4">
             <div class="min-w-full inline-block align-middle">
               <div class="overflow-hidden  border rounded-lg border-gray-300">
                 <table class="table-auto min-w-full rounded-xl">
                   <thead>
-                    <tr class="bg-gray-50">
+                    <tr class="dark:bg-gray-800">
                       <th class=""></th>
                       <th
                         scope="col"
-                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize"
                       >
                         {" "}
                         ID{" "}
                       </th>
                       <th
                         scope="col"
-                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize min-w-[150px]"
+                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize min-w-[150px]"
                       >
                         {" "}
                         Name{" "}
                       </th>
                       <th
                         scope="col"
-                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize"
                       >
                         {" "}
                         Join Date{" "}
                       </th>
                       <th
                         scope="col"
-                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize"
                       >
                         {" "}
                         Created By{" "}
                       </th>
                       <th
                         scope="col"
-                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-gray-900 capitalize"
+                        class="p-5 text-left whitespace-nowrap text-sm leading-6 font-semibold text-white capitalize"
                       >
                         {" "}
                         Actions{" "}
@@ -84,27 +84,27 @@ const TeamList = () => {
                   <tbody class="divide-y divide-gray-300 ">
                     {teams?.map((team, index) => (
                       <tr
-                        class="bg-white transition-all duration-500 hover:bg-gray-50"
+                        class="c transition-all duration-500 hover:bg-gray-700 shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                         key={team.id}
                       >
                         <td class=""></td>
-                        <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                        <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white">
                           {index + 1}
                         </td>
                         <td class=" px-5 py-3">
                           <div class="w-48 flex items-center gap-3">
                             <div class="data">
-                              <p class="font-normal text-sm text-gray-900">
+                              <p class="font-normal text-sm text-white">
                                 {team.name}
                               </p>
                             </div>
                           </div>
                         </td>
-                        <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+                        <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white">
                           {team.createdAt}
                         </td>
-                        <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
-                          <p class="font-normal text-sm text-gray-900">
+                        <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-white">
+                          <p class="font-normal text-sm text-white">
                             {team.user?.name ?? "Unknown"}
                           </p>
                         </td>
