@@ -62,27 +62,18 @@ const Profile = () => {
   };
 
   return (
-    <section className="profile bg-gray-100 py-10 min-h-screen">
+    <section className="profile dark:bg-gray-800 py-10 min-h-screen">
       <div className="grid place-items-center text-center">
-        {/* <Link
-          to="/profile"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
-        >
-          My posts
-        </Link> */}
-
         <div className="w-full flex flex-col items-center">
-          {/* Avatar Container */}
           <div className="w-40 aspect-square relative">
             <div className="h-full rounded-full overflow-hidden ring-4 ring-white shadow-md">
               <img
                 src={avatar}
                 alt="Avatar"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover text-white"
               />
             </div>
 
-            {/* Edit Button */}
             <form className="absolute right-1 bottom-1" onSubmit={updateUser}>
               <input
                 type="file"
@@ -108,13 +99,10 @@ const Profile = () => {
             </form>
           </div>
 
-          {/* Nama User */}
-
-          <h1 className="mt-4 text-3xl font-bold text-gray-800 mb-12">
+          <h1 className="mt-4 text-3xl font-bold text-white mb-12">
             {name}
           </h1>
 
-          {/* form profile__form */}
           <form className="mx-32" onSubmit={updateUser}>
             <p className="block sm:inline text-center text-red-600 dark">
               {msg}
@@ -122,7 +110,7 @@ const Profile = () => {
 
             <label
               htmlFor="username"
-              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
             >
               Username:
             </label>
@@ -132,12 +120,12 @@ const Profile = () => {
               id="username"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
 
             <label
               htmlFor="email"
-              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
             >
               Email:
             </label>
@@ -147,12 +135,12 @@ const Profile = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
 
             <label
               htmlFor="role"
-              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
             >
               Role:
             </label>
@@ -161,12 +149,12 @@ const Profile = () => {
               id="role"
               value={role}
               readOnly
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
 
             <label
               htmlFor="team"
-              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
             >
               Team:
             </label>
@@ -175,12 +163,12 @@ const Profile = () => {
               id="team"
               value={team}
               readOnly
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
 
             <label
               htmlFor="password"
-              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
             >
               New Password:
             </label>
@@ -189,12 +177,12 @@ const Profile = () => {
               placeholder="New Password"
               value={NewPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
 
             <label
               htmlFor="team"
-              className="text-xl font-bold font-serif text-gray-700 mb-1 justify-start flex"
+              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
             >
               Confirm Password:
             </label>
@@ -203,7 +191,7 @@ const Profile = () => {
               placeholder="Confirm New Password"
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-gray-200 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
 
             <button
