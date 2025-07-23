@@ -25,35 +25,15 @@ const Login = () => {
     dispatch(LoginUser({ email, password }));
   };
 
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   const email = document.getElementById("email").value.trim();
-  //   const password = document.getElementById("password").value;
-  //   const remember = document.getElementById("remember").checked;
-
-  //   if (!email || !password) {
-  //     alert("Please fill in all fields");
-  //     return;
-  //   }
-
-  //   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-  //     alert("Please enter a valid email address");
-  //     return;
-  //   }
-
-  //   console.log("Login attempt:", { email, remember });
-  //   alert("Login successful!");
-  // };
-
   return (
-    <div className="min-h-screen flex items-center justify-center w-full p-4">
-      <div className="bg-white dark:bg-gray-900 shadow-2xl rounded-xl px-8 py-6 max-w-md w-full transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
+    <div className="min-h-screen bg-[#F9F9F9] dark:bg-gray-900 flex items-center justify-center w-full p-4">
+      <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-xl px-8 py-6 max-w-md w-full transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
         {isError && (
           <div
             className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
             role="alert"
           >
-              <span className="block sm:inline text-center">{message}</span>
+            <span className="block sm:inline text-center">{message}</span>
           </div>
         )}
         <h1 className="text-3xl font-bold text-center mb-8 text-indigo-800 dark:text-gray-200">
@@ -94,29 +74,6 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <a
-              href="https://tailwindflex.com/@nejaa-badr/forgot-password-form-2"
-              className="inline-block mt-2 text-sm text-indigo-800 hover:text-blue-900 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors duration-300"
-            >
-              Forgot Password?
-            </a>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="remember"
-                className="h-4 w-4 rounded border-gray-300 text-indigo-800 focus:ring-indigo-800 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-900 transition-colors duration-300"
-                defaultChecked
-              />
-              <label
-                htmlFor="remember"
-                className="ml-2 block text-sm text-indigo-900 dark:text-gray-300"
-              >
-                Remember me
-              </label>
-            </div>
             <Link
               to="/register"
               className="text-sm text-indigo-800 hover:text-blue-900 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors duration-300"
