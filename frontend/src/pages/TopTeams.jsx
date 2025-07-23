@@ -22,9 +22,8 @@ const TopTeams = () => {
   }, [isError, navigate]);
   return (
     <Layout>
-      <Leaderboards>
+      <Leaderboards/>
         <TopTeam />
-      </Leaderboards>
     </Layout>
   );
 };

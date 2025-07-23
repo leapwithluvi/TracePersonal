@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Leaderboards = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const location = useLocation();
   return (
     <div>
       <h1 className="text-2xl font-semibold text-white text-4xl font-sans">
@@ -22,8 +23,11 @@ const Leaderboards = () => {
               <li>
                 <Link
                   to="/leaderboards"
-                  class="text-gray-900 dark:text-white text-xl"
-                  aria-current="page"
+                  class={`text-xl ${
+                    location.pathname === "/leaderboards"
+                    ? "text-white"
+                    : "text-gray-500 hover:text-white"
+                  }`}
                 >
                   Top Individuals
                 </Link>
@@ -31,7 +35,11 @@ const Leaderboards = () => {
               <li>
                 <Link
                   to="/leaderboards/top-teams"
-                  class="text-white dark:text-gray-400 hover:text-white text-xl"
+                  class={`text-xl ${
+                    location.pathname === "/leaderboards/top-teams"
+                    ? "text-white"
+                    : "text-gray-500 hover:text-white"
+                  }`}
                 >
                   Top Teams
                 </Link>
