@@ -3,6 +3,7 @@ import ChallengeAuthor from "./ChallengeAuthor";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import thumbnail from "../images/logo.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const DetailChallenge = () => {
   const [title, setTitle] = useState("");
@@ -15,6 +16,7 @@ const DetailChallenge = () => {
   const [visibility, setVisibility] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
   const deleteChallenge = async (challengeId) => {
     const confirmDelete = window.confirm(
@@ -55,20 +57,22 @@ const DetailChallenge = () => {
       <div className="max-w-screen-md mx-44 dark:bg-gray-800 rounded-xl shadow-md p-6 ">
         <div className="flex justify-between items-center mb-6">
           <ChallengeAuthor />
-          <div className="flex gap-4 items-center">
-            <Link
-              to={`/challenge/edit/${id}`}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-            >
-              Edit
-            </Link>
-            <button
-              onClick={() => deleteChallenge(id)}
-              className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
-            >
-              Delete
-            </button>
-          </div>
+          {user && user.role.toLowerCase() === "admin" && (
+            <div className="flex gap-4 items-center">
+              <Link
+                to={`/challenge/edit/${id}`}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+              >
+                Edit
+              </Link>
+              <button
+                onClick={() => deleteChallenge(id)}
+                className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </div>
 
         <hr />
