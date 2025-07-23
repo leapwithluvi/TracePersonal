@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "../images/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaEdit, FaCheck } from "react-icons/fa";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [avatar, setAvatar] = useState(Avatar);
@@ -14,32 +15,54 @@ const Profile = () => {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [userId, setUserId] = useState("");
   const [msg, setMsg] = useState("");
-
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const isOwnProfile = !id || (user && id === user.uuid);
 
   useEffect(() => {
-    const getUserById = async () => {
+    const fetchProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/me`);
-        setName(response.data.name);
-        setEmail(response.data.email);
-        setRole(response.data.role);
-        setTeam(response.data.team);
-        setNewPassword(response.data.password);
-        setConfirmNewPassword(response.data.confirmPassword);
-        setUserId(response.data.uuid);
-      } catch (error) {
-        if (error.response) {
-          setMsg(error.response.data.msg);
+        if (!id || id === user?.uuid) {
+          const response = await axios.get(`http://localhost:5000/me`);
+          setName(response.data.name);
+          setEmail(response.data.email);
+          setRole(response.data.role);
+          setTeam(response.data.team);
+          setUserId(response.data.uuid);
+        } else {
+          const response = await axios.get(`http://localhost:5000/users/${id}`);
+          setName(response.data.name);
+          setEmail(response.data.email);
+          setRole(response.data.role);
+          setTeam(response.data.team);
+          setUserId(response.data.uuid);
         }
+      } catch (error) {
+        if (error.response) setMsg(error.response.data.msg);
       }
     };
-    getUserById();
-  }, []);
+
+    if (user) {
+      fetchProfile();
+    }
+  }, [id, user]);
 
   const updateUser = async (e) => {
     e.preventDefault();
-    const confirm = window.confirm;
+    if (
+      !NewPassword &&
+      !confirmNewPassword &&
+      name === user.name &&
+      email === user.email
+    ) {
+      alert("Anda belum melakukan perubahan!");
+      return;
+    }
+    const confirmed = window.confirm(
+      "Apakah Anda yakin ingin melakukan perubahan?"
+    );
+    if (!confirmed) return;
     try {
       await axios.patch(`http://localhost:5000/users/${userId}`, {
         name,
@@ -47,19 +70,17 @@ const Profile = () => {
         password: NewPassword,
         confirmPassword: confirmNewPassword,
       });
-      if (!updateUser === "") {
-        alert("anda belum melakukan perubahan!");
-        navigate("/profile");
-      } else {
-        confirm("Apakah Anda yakin ingin melakukan perubahan?");
-        navigate("/");
-      }
+      alert("Profil berhasil diperbarui!");
+      navigate("/");
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);
       }
     }
   };
+  if (!user) {
+    return <div className="text-white text-center mt-10">Loading...</div>;
+  }
 
   return (
     <section className="profile dark:bg-gray-800 py-10 min-h-screen">
@@ -74,34 +95,28 @@ const Profile = () => {
               />
             </div>
 
-            <form className="absolute right-1 bottom-1" onSubmit={updateUser}>
-              <input
-                type="file"
-                name="avatar"
-                id="avatar"
-                className="hidden"
-                accept="png, jpeg, jpg"
-                onChange={(e) => setAvatar(e.target.files[0])}
-              />
-              <label
-                htmlFor="avatar"
-                className="bg-gray-600 text-white text-lg w-10 h-9 flex items-center justify-center rounded-full cursor-pointer"
-              >
-                <FaEdit />
-              </label>
-
-              {/* Save Button (tampil kalau file dipilih) */}
-              {/* {avatar && (
-                <button className="bg-blue-600 text-white text-lg w-10 h-10 flex items-center justify-center rounded-full absolute bottom-px  ">
-                  <FaCheck />
-                </button>
-              )} */}
-            </form>
+            {isOwnProfile && (
+              <form className="absolute right-1 bottom-1" onSubmit={updateUser}>
+                <input
+                  type="file"
+                  name="avatar"
+                  id="avatar"
+                  className="hidden"
+                  disabled={!isOwnProfile}
+                  accept="png, jpeg, jpg"
+                  onChange={(e) => setAvatar(e.target.files[0])}
+                />
+                <label
+                  htmlFor="avatar"
+                  className="bg-gray-600 text-white text-lg w-10 h-9 flex items-center justify-center rounded-full cursor-pointer"
+                >
+                  <FaEdit />
+                </label>
+              </form>
+            )}
           </div>
 
-          <h1 className="mt-4 text-3xl font-bold text-white mb-12">
-            {name}
-          </h1>
+          <h1 className="mt-4 text-3xl font-bold text-white mb-12">{name}</h1>
 
           <form className="mx-32" onSubmit={updateUser}>
             <p className="block sm:inline text-center text-red-600 dark">
@@ -119,6 +134,7 @@ const Profile = () => {
               placeholder="Username"
               id="username"
               value={name}
+              disabled={!isOwnProfile}
               onChange={(e) => setName(e.target.value)}
               className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
@@ -134,6 +150,7 @@ const Profile = () => {
               placeholder="Email"
               id="email"
               value={email}
+              disabled={!isOwnProfile}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
             />
@@ -148,8 +165,9 @@ const Profile = () => {
               type="text"
               id="role"
               value={role}
+              disabled
               readOnly
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 mb-4"
             />
 
             <label
@@ -162,44 +180,49 @@ const Profile = () => {
               type="text"
               id="team"
               value={team}
+              disabled
               readOnly
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 mb-4"
             />
 
-            <label
-              htmlFor="password"
-              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
-            >
-              New Password:
-            </label>
-            <input
-              type="password"
-              placeholder="New Password"
-              value={NewPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
-            />
+            {isOwnProfile && (
+              <>
+                <label
+                  htmlFor="newPassword"
+                  className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
+                >
+                  New Password:
+                </label>
+                <input
+                  type="password"
+                  placeholder="New Password"
+                  value={NewPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 mb-4"
+                />
 
-            <label
-              htmlFor="team"
-              className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
-            >
-              Confirm Password:
-            </label>
-            <input
-              type="password"
-              placeholder="Confirm New Password"
-              value={confirmNewPassword}
-              onChange={(e) => setConfirmNewPassword(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 mb-4"
-            />
+                <label
+                  htmlFor="confirmNewPassword"
+                  className="text-xl font-bold font-serif text-white mb-1 justify-start flex"
+                >
+                  Confirm Password:
+                </label>
+                <input
+                  type="password"
+                  placeholder="Confirm New Password"
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                  className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 dark:text-white dark:bg-gray-900 mb-4"
+                />
 
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4"
-            >
-              Update my Profile
-            </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mt-4"
+                >
+                  Update my Profile
+                </button>
+              </>
+            )}
           </form>
         </div>
       </div>
