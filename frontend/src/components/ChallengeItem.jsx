@@ -22,7 +22,11 @@ const ChallengeItem = ({ id, title, description, thumbnail }) => {
             <h2 className="text-2xl font-semibold text-white">
               <strong>{shortTitle}</strong>
             </h2>
-            <p className="text-white mt-2">{shortDesc}</p>
+            <p
+              className="text-white mt-2"
+              dangerouslySetInnerHTML={{ __html: shortDesc }}
+            >
+            </p>
           </div>
         </Link>
         <div className="flex justify-between items-end m-8">

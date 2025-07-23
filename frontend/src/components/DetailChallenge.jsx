@@ -101,9 +101,10 @@ const DetailChallenge = () => {
           />
         </div>
 
-        <div className="space-y-4 text-white leading-relaxed">
-          {description}
-        </div>
+        <div
+          className="space-y-4 text-white leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: description }}
+        ></div>
       </div>
     </section>
   );
