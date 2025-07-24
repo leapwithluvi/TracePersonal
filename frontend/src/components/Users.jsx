@@ -39,7 +39,7 @@ const Users = () => {
     <div className="px-6 py-4">
       <h1 className="text-4xl font-semibold text-gray-900 mb-4 text-white">Users</h1>
 
-      <form className="max-w-md mb-6" onSubmit={(e) => e.preventDefault()}>
+      <form className="w-full mb-6" onSubmit={(e) => e.preventDefault()}>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
