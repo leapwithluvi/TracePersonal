@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ChallengeItem from "./ChallengeItem";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Challenge = () => {
   const [challenges, setChallenges] = useState([]);
@@ -38,11 +39,11 @@ const Challenge = () => {
           incidunt ipsa expedita est, ipsum illum! <br /> Fugiat, soluta.
           Facilis corporis ab quod maiores?
         </p>
-        <button class="text-white bg-blue border border-blue-white focus:ring-4 focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 mb-6">
+        <Link to="/work" class="text-white bg-blue border border-blue-white focus:ring-4 focus:outline-none font-bold rounded-lg text-sm px-5 py-2.5 mb-6">
           Your Work
-        </button>
+        </Link>
 
-        <form className="w-full mb-6" onSubmit={(e) => e.preventDefault()}>
+        <form className="w-full mb-6 mt-12" onSubmit={(e) => e.preventDefault()}>
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -74,7 +75,7 @@ const Challenge = () => {
               rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 
               dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
               dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search users..."
+              placeholder="Search Challenges..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

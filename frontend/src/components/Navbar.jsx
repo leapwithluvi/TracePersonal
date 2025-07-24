@@ -41,7 +41,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <img src={logo} alt="Logo" className="h-8 w-auto" />
             {!collapsed && (
-              <span className="ml-2 text-xl font-semibold">Admin</span>
+              <span className="ml-2 text-xl font-semibold">Trace Personal</span>
             )}
           </div>
           <button
@@ -209,13 +209,15 @@ const Navbar = () => {
             )}
           </NavLink>
 
+          <hr/>
+
           {/* Datas Dropdown */}
           {user && user.role.toLowerCase() === "admin" && (
             <div>
               <div>
                 <button
                   onClick={() => toggleDropdown("datas")}
-                  className="dropdown-btn w-full flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
+                  className="mt-2 dropdown-btn w-full flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in"
                 >
                   <svg
                     className="mr-3 h-6 w-6 text-gray-400"
