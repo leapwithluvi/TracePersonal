@@ -15,6 +15,9 @@ import Challenges from "./pages/Challenges";
 // search user
 import AllUsers from "./pages/AllUsers";
 
+// daily log
+import DailyLogPage from "./pages/DailyLogPage";
+
 // leaderboard
 import Leaderboard from "./pages/Leaderboard";
 import TopTeams from "./pages/TopTeams";
@@ -64,6 +67,9 @@ export default function App() {
 
           {/* search users */}
           <Route path="/all-users" element={<AllUsers />} />
+
+          {/* daily log */}
+          <Route path="/daily-log" element={<DailyLogPage />} />
 
           {/* Leaderboards */}
           <Route path="/leaderboards" element={<Leaderboard />} />
