@@ -17,6 +17,7 @@ import AllUsers from "./pages/AllUsers";
 
 // daily log
 import DailyLogPage from "./pages/DailyLogPage";
+import AddDailyLog from "./pages/AddDailyLog";
 
 // leaderboard
 import Leaderboard from "./pages/Leaderboard";
@@ -70,6 +71,7 @@ export default function App() {
 
           {/* daily log */}
           <Route path="/daily-log" element={<DailyLogPage />} />
+          <Route path="/daily-log/add" element={<AddDailyLog />} />
 
           {/* Leaderboards */}
           <Route path="/leaderboards" element={<Leaderboard />} />
