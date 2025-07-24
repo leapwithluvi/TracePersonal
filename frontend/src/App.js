@@ -19,6 +19,9 @@ import AllUsers from "./pages/AllUsers";
 import Leaderboard from "./pages/Leaderboard";
 import TopTeams from "./pages/TopTeams";
 
+// work
+import Work from "./pages/work";
+
 // datas: user, team, role, challenge
 // user
 import Users from "./pages/Users";
@@ -65,6 +68,10 @@ export default function App() {
           {/* Leaderboards */}
           <Route path="/leaderboards" element={<Leaderboard />} />
           <Route path="/leaderboards/top-teams" element={<TopTeams />} />
+
+          {/* Work */}
+          <Route path="/work" element={<Work />} />
+
 
           {/* Datas: User, Team, Role, Challenge */}
           {/* user */}
