@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 
 // challenges
 import Challenges from "./pages/Challenges";
+import MissionLayout from "./pages/MissionLayout";
+import DescLayout from "./pages/DescLayout";
 
 // search user
 import AllUsers from "./pages/AllUsers";
@@ -65,6 +67,10 @@ export default function App() {
 
           {/* Challenges */}
           <Route path="/challenges" element={<Challenges />} />
+          <Route path="/challenges/:id/mission" element={<MissionLayout />} />
+          <Route path="/challenges/:id/overview" element={<DescLayout />} />
+          {/* <Route path="/challenges/:id" element={<ChallengeDetail />} /> */}
+
 
           {/* search users */}
           <Route path="/all-users" element={<AllUsers />} />
@@ -100,7 +106,6 @@ export default function App() {
           {/* Challenge */}
           <Route path="/challenge/add" element={<AddChallenge />} />
           <Route path="/challenge/edit/:id" element={<EditChallenge />} />
-          <Route path="/challenges/:id" element={<ChallengeDetail />} />
         </Routes>
       </BrowserRouter>
     </div>

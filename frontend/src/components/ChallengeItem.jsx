@@ -17,7 +17,7 @@ const ChallengeItem = ({ id, title, description, thumbnail }) => {
         />
       </div>
       <div className="mt-6">
-        <Link to={`/challenges/${id}`}>
+        <Link to={`/challenges/${id}/overview`}>
           <div className="mx-4">
             <h2 className="text-2xl font-semibold text-white">
               <strong>{shortTitle}</strong>
