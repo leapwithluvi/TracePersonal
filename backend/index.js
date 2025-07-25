@@ -30,9 +30,11 @@ app.use(
   session({
     secret: process.env.SESS_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: store,
     cookie: {
+      httpOnly: true, //hapus kalau udh https nnti
+      secure: false,
       secure: "auto",
     },
   })

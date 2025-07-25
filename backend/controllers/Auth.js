@@ -24,7 +24,9 @@ export const Register = async (req, res) => {
   const { name, email, password, confirmPassword, role, team } = req.body;
 
   if (password !== confirmPassword) {
-    return res.status(400).json({ msg: "Password dan konfirmasi password tidak cocok" });
+    return res
+      .status(400)
+      .json({ msg: "Password dan konfirmasi password tidak cocok" });
   }
 
   try {
@@ -35,9 +37,9 @@ export const Register = async (req, res) => {
       password: hashPassword,
       role,
       team,
-      userId: req.userId
+      userId: req.userId,
     });
-    attributes: ["id", "uuid", "name", "email", "role", "team"]
+    attributes: ["id", "uuid", "name", "email", "role", "team"];
     res.status(201).json({ msg: "User berhasil terdaftar", user: newUser });
   } catch (error) {
     res.status(400).json({ msg: error.message });

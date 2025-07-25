@@ -1,4 +1,5 @@
 import LogDay from "../models/LogDayModel.js";
+import User from "../models/UserModel.js";
 
 // GET All LogDay
 export const getLogDay = async (req, res) => {
@@ -25,7 +26,9 @@ export const getLogDayById = async (req, res) => {
 export const createLogDay = async (req, res) => {
   const { date, water_intake, sleep_duration, workout_completed, mood, notes } =
     req.body;
+  const userUuid = req.session.userId;
   try {
+    if (!userUuid) return res.status(401).json({ msg: "Anda belum login" });
     if (
       !date ||
       !water_intake ||
@@ -35,11 +38,10 @@ export const createLogDay = async (req, res) => {
     ) {
       return res.status(400).json({ msg: "Data tidak lengkap" });
     }
-
-    const userId = req.session.userId;
-    if (!userId) return res.status(401).json({ msg: "Anda belum login" });
-
+    const user = await User.findOne({ where: { uuid: userUuid } });
+    if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
     const createLogDay = await LogDay.create({
+      user_id: user.id,
       date,
       water_intake,
       sleep_duration,
