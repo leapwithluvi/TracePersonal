@@ -4,7 +4,15 @@ import User from "../models/UserModel.js";
 // GET All LogDay
 export const getLogDay = async (req, res) => {
   try {
-    const logdays = await LogDay.findAll();
+    const logdays = await LogDay.findAll({
+      include: [
+        {
+          model: User,
+          as: "creator",
+          attributes: ["name", "uuid"],
+        }
+      ]
+    });
     res.status(200).json(logdays);
   } catch (error) {
     res.status(500).json({ msg: error.message });
