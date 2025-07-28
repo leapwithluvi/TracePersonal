@@ -8,6 +8,7 @@ import DescChallenge from "./DescChallenge";
 const DetailChallenge = () => {
   const [title, setTitle] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [challenges, setChallenges] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -35,14 +36,14 @@ const DetailChallenge = () => {
         const response = await axios.get(
           `http://localhost:5000/challenges/${id}`
         );
-        setTitle(response.data.title);
-        setThumbnail(response.data.thumbnail);
-      } catch (error) {}
+        setChallenges(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
     getChallengeById();
   }, [id]);
 
-  
   return (
     <div className="px-12">
       <div className="flex justify-between items-center mb-6">
@@ -50,13 +51,13 @@ const DetailChallenge = () => {
         {user && user.role.toLowerCase() === "admin" && (
           <div className="flex gap-4 items-center">
             <Link
-              to={`/challenge/edit/${title}`}
+              to={`/challenge/edit/${challenges.id}`}
               className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
             >
               Edit
             </Link>
             <button
-              onClick={() => deleteChallenge(title)}
+              onClick={() => deleteChallenge(challenges.id)}
               className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
             >
               Delete
