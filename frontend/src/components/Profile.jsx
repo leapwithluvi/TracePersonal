@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [avatar, setAvatar] = useState(Avatar);
+  const [avatarFile, setAvatarFile] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -20,32 +21,42 @@ const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const isOwnProfile = !id || (user && id === user.uuid);
 
+  const changeAvatar = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("avatar", avatarFile);
+
+    try {
+      const res = await axios.post("http://localhost:5000/upload", formData);
+      const uploadUrl = `http://localhost:5000${res.data.filePath}`;
+      setAvatar(uploadUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        if (!id || id === user?.uuid) {
-          const response = await axios.get(`http://localhost:5000/me`);
-          setName(response.data.name);
-          setEmail(response.data.email);
-          setRole(response.data.role);
-          setTeam(response.data.team);
-          setUserId(response.data.uuid);
-        } else {
-          const response = await axios.get(`http://localhost:5000/users/${id}`);
-          setName(response.data.name);
-          setEmail(response.data.email);
-          setRole(response.data.role);
-          setTeam(response.data.team);
-          setUserId(response.data.uuid);
+        const response = await axios.get(
+          !id || id === user?.uuid
+            ? `http://localhost:5000/me`
+            : `http://localhost:5000/users/${id}`
+        );
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setRole(response.data.role);
+        setTeam(response.data.team);
+        setUserId(response.data.uuid);
+        if (response.data.avatar) {
+          setAvatar(`http://localhost:5000/images/${response.data.avatar}`);
         }
       } catch (error) {
         if (error.response) setMsg(error.response.data.msg);
       }
     };
 
-    if (user) {
-      fetchProfile();
-    }
+    if (user) fetchProfile();
   }, [id, user]);
 
   const updateUser = async (e) => {
@@ -96,15 +107,21 @@ const Profile = () => {
             </div>
 
             {isOwnProfile && (
-              <form className="absolute right-1 bottom-1" onSubmit={updateUser}>
+              <form
+                className="absolute right-1 bottom-1"
+                onSubmit={changeAvatar}
+              >
                 <input
                   type="file"
                   name="avatar"
                   id="avatar"
                   className="hidden"
                   disabled={!isOwnProfile}
-                  accept="png, jpeg, jpg"
-                  onChange={(e) => setAvatar(e.target.files[0])}
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    setAvatarFile(file);
+                  }}
                 />
                 <label
                   htmlFor="avatar"
@@ -112,6 +129,12 @@ const Profile = () => {
                 >
                   <FaEdit />
                 </label>
+                <button
+                  className="bg-blue-600 text-white text-lg w-20 h-6 flex items-center justify-center rounded-full absolute b-24"
+                  type="submit"
+                >
+                  Upload
+                </button>
               </form>
             )}
           </div>

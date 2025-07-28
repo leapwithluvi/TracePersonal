@@ -77,6 +77,10 @@ const User = db.define(
         key: "name",
       },
     },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     // team_id: {
     //   type: DataTypes.INTEGER,
     //   allowNull: true,
