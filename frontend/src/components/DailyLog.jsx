@@ -5,6 +5,14 @@ import axios from "axios";
 const DailyLog = () => {
   const [data, setData] = useState([]);
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
   const getLog = async () => {
     try {
       const response = await axios.get("http://localhost:5000/logdays");
@@ -86,6 +94,12 @@ const DailyLog = () => {
                   <tr>
                     <th
                       scope="col"
+                      class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400"
+                    >
+                      <span>#</span>
+                    </th>
+                    <th
+                      scope="col"
                       class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
                       <span>Kalender & Mood</span>
@@ -124,8 +138,13 @@ const DailyLog = () => {
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                  {data.map((item, index) => (
+                  {currentItems.map((item, index) => (
                     <tr key={item.id}>
+                      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                        <div class="font-medium text-gray-800 dark:text-white text-center">
+                          {index + 1 + (currentPage - 1) * itemsPerPage}
+                        </div>
+                      </td>
                       <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                         <div>
                           <h2 class="font-medium text-gray-800 dark:text-white ">
@@ -137,13 +156,13 @@ const DailyLog = () => {
                         </div>
                       </td>
                       <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                        <div class="inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                          {item.water_intake}
+                        <div class="inline px-3 py-1 text-sm font-normal rounded-full text-white dark:bg-gray-800">
+                          {item.water_intake} Liter
                         </div>
                       </td>
                       <td class="px-4 py-4 text-sm whitespace-nowrap">
                         <div>
-                          <h4 class="text-gray-700 dark:text-gray-200">
+                          <h4 class="text-gray-700 dark:text-gray-200 inline px-3 py-1 text-sm font-normal rounded-full text-white dark:bg-gray-800">
                             {item.sleep_duration}
                           </h4>
                         </div>
@@ -151,7 +170,7 @@ const DailyLog = () => {
 
                       <td class="px-4 py-4 text-sm whitespace-nowrap">
                         <div>
-                          <h4 class="text-gray-700 dark:text-gray-200">
+                          <h4 class="text-gray-700 dark:text-gray-200 inline px-3 py-1 text-sm font-normal rounded-full text-white dark:bg-gray-800">
                             {workoutStatus[item.workout_completed]}
                           </h4>
                         </div>
@@ -183,14 +202,15 @@ const DailyLog = () => {
       <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
         <div class="text-sm text-gray-500 dark:text-gray-400">
           Page{" "}
-          <span class="font-medium text-gray-700 dark:text-gray-100">
-            1 of 10
+          <span className="font-medium text-gray-700 dark:text-gray-100">
+            {currentPage} of {totalPages}
           </span>
         </div>
 
         <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
-          <a
-            href="#"
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
             class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
           >
             <svg
@@ -209,10 +229,13 @@ const DailyLog = () => {
             </svg>
 
             <span>previous</span>
-          </a>
+          </button>
 
-          <a
-            href="#"
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === 10}
             class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
           >
             <span>Next</span>
@@ -231,7 +254,7 @@ const DailyLog = () => {
                 d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
               />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </div>
