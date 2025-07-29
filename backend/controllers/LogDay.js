@@ -4,15 +4,7 @@ import User from "../models/UserModel.js";
 // GET All LogDay
 export const getLogDay = async (req, res) => {
   try {
-    const logdays = await LogDay.findAll({
-      include: [
-        {
-          model: User,
-          as: "creator",
-          attributes: ["name", "uuid"],
-        }
-      ]
-    });
+    const logdays = await LogDay.findAll({});
     res.status(200).json(logdays);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -38,11 +30,11 @@ export const createLogDay = async (req, res) => {
   try {
     if (!userUuid) return res.status(401).json({ msg: "Anda belum login" });
     if (
-      !date ||
-      !water_intake ||
-      !sleep_duration ||
-      !workout_completed ||
-      !mood
+      date == null ||
+      water_intake == null ||
+      sleep_duration == null ||
+      workout_completed == null ||
+      mood == null
     ) {
       return res.status(400).json({ msg: "Data tidak lengkap" });
     }
@@ -65,6 +57,8 @@ export const createLogDay = async (req, res) => {
 
 // update (PATCH) LogDay
 export const updateLogDay = async (req, res) => {
+  const { date, water_intake, sleep_duration, workout_completed, mood, notes } =
+    req.body;
   try {
     const updateLogDay = await LogDay.findByPk(req.params.id);
     if (!updateLogDay)
@@ -89,10 +83,10 @@ export const updateLogDay = async (req, res) => {
 // DELETE LogDay
 export const deleteLogDay = async (req, res) => {
   try {
-    const deleteLogDay = await LogDay.destroy();
+    const logday = await LogDay.findByPk(req.params.id);
     if (!deleteLogDay)
       return res.status(404).json({ msg: "LogDay tidak ditemukan" });
-    await deleteLogDay.destroy();
+    await logday.destroy();
     res.status(200).json({ msg: "LogDay berhasil di hapus" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
