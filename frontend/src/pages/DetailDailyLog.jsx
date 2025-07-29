@@ -1,0 +1,13 @@
+import React from 'react'
+import Layout from '../components/Layout'
+import  DailyLogDetail from '../components/DailyLogDetail'
+
+const DetailDailyLog = () => {
+  return (
+    <Layout>
+      <DailyLogDetail />
+    </Layout>
+  )
+}
+
+export default DetailDailyLog
