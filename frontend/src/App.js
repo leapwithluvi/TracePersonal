@@ -20,7 +20,7 @@ import AllUsers from "./pages/AllUsers";
 // daily log
 import DailyLogPage from "./pages/DailyLogPage";
 import AddDailyLog from "./pages/AddDailyLog";
-import DailyLogDetail from "./components/DailyLogDetail";
+import DetailDailyLog from "./pages/DetailDailyLog";
 
 // leaderboard
 import Leaderboard from "./pages/Leaderboard";
@@ -79,7 +79,7 @@ export default function App() {
           {/* daily log */}
           <Route path="/daily-log" element={<DailyLogPage />} />
           <Route path="/daily-log/add" element={<AddDailyLog />} />
-          <Route path="/daily-log/:id/detail" element={<DailyLogDetail />} />
+          <Route path="/daily-log/:id/detail" element={<DetailDailyLog />} />
 
           {/* Leaderboards */}
           <Route path="/leaderboards" element={<Leaderboard />} />

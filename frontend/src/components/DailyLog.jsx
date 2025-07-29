@@ -175,7 +175,7 @@ const DailyLog = () => {
                       </td>
 
                       <td class="px-4 py-4 text-sm whitespace-nowrap">
-                        <Link to={`/dailylog/${item.id}/detail`}>
+                        <Link to={`/daily-log/${item.id}/detail`}>
                           <button
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full transition duration-300"

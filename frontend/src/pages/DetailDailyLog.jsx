@@ -1,6 +1,6 @@
 import React from 'react'
-import Layout from '../components/Layout'
-import  DailyLogDetail from '../components/DailyLogDetail'
+import Layout from './Layout'
+import DailyLogDetail from '../components/DailyLogDetail'
 
 const DetailDailyLog = () => {
   return (
