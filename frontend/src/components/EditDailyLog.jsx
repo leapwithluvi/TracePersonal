@@ -1,26 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const EditDailyLog = () => {
-  const getToday = () => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-    return `${yyyy}-${mm}-${dd}`;
+  const [data, setData] = useState([]);
+  const [water_intake, setWaterIntake] = useState("");
+  const [sleep_duration, setSleepDuration] = useState("");
+  const [workout_completed, setWorkoutCompleted] = useState("");
+  const [date, setDate] = useState("");
+  const [mood, setMood] = useState("");
+  const [notes, setnotes] = useState("");
+  const [id, setId] = useState(window.location.pathname.split("/")[2]);
+  const navigate = useNavigate();
+
+  const getLog = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/logdays/${id}`);
+      setWaterIntake(response.data.water_intake);
+      setSleepDuration(response.data.sleep_duration);
+      setWorkoutCompleted(response.data.workout_completed);
+      setDate(response.data.date.slice(0, 10));
+
+      setMood(response.data.mood);
+      setnotes(response.data.notes);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const [tanggal, setTanggal] = useState("");
-
   useEffect(() => {
-    setTanggal(getToday());
+    getLog();
   }, []);
+
+  const updateLog = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.patch(`http://localhost:5000/logdays/${id}`, {
+        water_intake,
+        sleep_duration,
+        workout_completed,
+        date,
+        mood,
+        notes,
+      });
+      alert("Daily Log berhasil diupdate!");
+      navigate("/daily-log");
+    } catch (error) {
+      console.log(error);
+      alert("Terjadi kesalahan saat mengupdate Daily Log. Silakan coba lagi.");
+    }
+  };
   return (
     <div className="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="text-2xl py-4 px-6 bg-gray-700 text-white text-center font-bold uppercase">
         Edit Daily Wellness Log
       </div>
 
-      <form className="py-4 px-6" method="POST">
+      <form className="py-4 px-6" onSubmit={updateLog}>
         <div className="mb-4">
           <label htmlFor="water" className="block text-gray-700 font-bold mb-2">
             Asupan Air (Liter)
@@ -28,6 +65,8 @@ const EditDailyLog = () => {
           <input
             id="water"
             type="text"
+            value={water_intake}
+            onChange={(e) => setWaterIntake(e.target.value)}
             placeholder="Contoh: 2.5"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -40,6 +79,8 @@ const EditDailyLog = () => {
           <input
             id="sleep"
             type="number"
+            value={sleep_duration}
+            onChange={(e) => setSleepDuration(e.target.value)}
             placeholder="Contoh: 7.5"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -53,13 +94,17 @@ const EditDailyLog = () => {
             Olahraga Hari Ini
           </label>
           <select
-            id="workout"s
+            id="workout"
+            value={workout_completed}
+            onChange={(e) => setWorkoutCompleted(e.target.value)}
             name="workout"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
             <option value="">Pilih status olahraga</option>
-            <option value="not-complete">Belum Selesai</option>
-            <option value="complete">Sudah Selesai</option>
+            <option value="1">Sudah Selesai</option>
+            <option value="0">Belum Selesai</option>
+            <option value="true">Sudah Selesai</option>
+            <option value="false">Belum Selesai</option>
           </select>
         </div>
 
@@ -70,8 +115,8 @@ const EditDailyLog = () => {
           <input
             id="date"
             type="date"
-            value={tanggal}
-            onChange={(e) => setTanggal(e.target.value)}
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -83,6 +128,8 @@ const EditDailyLog = () => {
           <select
             id="mood"
             name="mood"
+            value={mood}
+            onChange={(e) => setMood(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
             <option value="">Pilih mood Anda</option>
@@ -101,6 +148,8 @@ const EditDailyLog = () => {
           <textarea
             id="note"
             rows="4"
+            value={notes}
+            onChange={(e) => setnotes(e.target.value)}
             placeholder="Tulis catatan Anda (opsional)"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           ></textarea>

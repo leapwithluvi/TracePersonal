@@ -21,6 +21,7 @@ import AllUsers from "./pages/AllUsers";
 import DailyLogPage from "./pages/DailyLogPage";
 import AddDailyLog from "./pages/AddDailyLog";
 import DetailDailyLog from "./pages/DetailDailyLog";
+import EditDailyLog from "./pages/EditDailyLog";
 
 // leaderboard
 import Leaderboard from "./pages/Leaderboard";
@@ -72,7 +73,6 @@ export default function App() {
           <Route path="/challenges/:id/overview" element={<DescLayout />} />
           {/* <Route path="/challenges/:id" element={<ChallengeDetail />} /> */}
 
-
           {/* search users */}
           <Route path="/all-users" element={<AllUsers />} />
 
@@ -80,6 +80,7 @@ export default function App() {
           <Route path="/daily-log" element={<DailyLogPage />} />
           <Route path="/daily-log/add" element={<AddDailyLog />} />
           <Route path="/daily-log/:id/detail" element={<DetailDailyLog />} />
+          <Route path="/daily-log/:id/edit" element={<EditDailyLog />} />
 
           {/* Leaderboards */}
           <Route path="/leaderboards" element={<Leaderboard />} />
@@ -87,7 +88,6 @@ export default function App() {
 
           {/* Work */}
           <Route path="/work" element={<Work />} />
-
 
           {/* Datas: User, Team, Role, Challenge */}
           {/* user */}

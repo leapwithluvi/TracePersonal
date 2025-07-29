@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "./Layout";
-import EditDailyLog from "../components/EditDailyLog";
+import DailyLogEdit from "../components/EditDailyLog";
 
 const EditDailyLog = () => {
   return (
     <Layout>
-      <EditDailyLog />
+      <DailyLogEdit />
     </Layout>
   );
 };
