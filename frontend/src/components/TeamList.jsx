@@ -140,7 +140,7 @@ const TeamList = () => {
                 <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                   {filteredTeams.length === 0 ? (
                     <p className="text-gray-600 dark:text-gray-300">
-                      Tidak ada role ditemukan.
+                      Tidak ada team ditemukan.
                     </p>
                   ) : (
                     currentItems.map((team, index) => (
