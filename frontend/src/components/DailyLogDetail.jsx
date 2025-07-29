@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DailyLogDetail = () => {
   const [data, setData] = useState([]);
@@ -11,6 +11,7 @@ const DailyLogDetail = () => {
   const [mood, setMood] = useState("");
   const [notes, setnotes] = useState("");
   const [id, setId] = useState(window.location.pathname.split("/")[2]);
+  const navigate = useNavigate();
 
   const getLog = async () => {
     try {
@@ -39,7 +40,8 @@ const DailyLogDetail = () => {
     if (!confirm) return;
     try {
       await axios.delete(`http://localhost:5000/logdays/${id}`);
-      getLog();
+      alert("Daily Log berhasil dihapus!");
+      navigate("/daily-log");
     } catch (error) {
       console.log(error);
     }
@@ -170,6 +172,7 @@ const DailyLogDetail = () => {
             </Link>
             <Link
               to={`/daily-log/${id}/edit`}
+              onClick={() => deleteLog(id)}
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
             >
               Delete

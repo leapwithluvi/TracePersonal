@@ -34,19 +34,6 @@ const DailyLog = () => {
   useEffect(() => {
     getLog();
   }, []);
-
-  const deleteLog = async (id) => {
-    const confirm = window.confirm(
-      "Apakah Anda yakin ingin menghapus data ini?"
-    );
-    if (!confirm) return;
-    try {
-      await axios.delete(`http://localhost:5000/logdays/${id}`);
-      getLog();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <div>
       <h1 className="text-4xl font-semibold text-white">Daily Wellness Log</h1>
