@@ -79,7 +79,7 @@ const User = db.define(
     },
     avatar: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     // team_id: {
     //   type: DataTypes.INTEGER,
