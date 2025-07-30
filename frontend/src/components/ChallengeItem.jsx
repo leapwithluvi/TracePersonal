@@ -11,7 +11,7 @@ const ChallengeItem = ({ id, title, description, thumbnail }) => {
     <article className="min-h-screen bg-[#F9F9F9] dark:bg-gray-800 p-4 pb-8 hover:bg-gray-700 rounded-lg shadow-md  shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
       <div className="shadow-md overflow-hidden rounded-lg h-64">
         <img
-          src={thumbnail}
+          src={`http://localhost:5000/thumbnail/${thumbnail}`}
           alt={title}
           className="w-full h-full object-cover text-white"
         />
@@ -25,8 +25,7 @@ const ChallengeItem = ({ id, title, description, thumbnail }) => {
             <p
               className="text-white mt-2"
               dangerouslySetInnerHTML={{ __html: shortDesc }}
-            >
-            </p>
+            ></p>
           </div>
         </Link>
         <div className="flex justify-between items-end m-8">

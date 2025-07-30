@@ -68,7 +68,7 @@ const DetailChallenge = () => {
 
       <div className="mb-6 overflow-hidden rounded-lg max-h-96">
         <img
-          src={thumbnail}
+          src={`http://localhost:5000/thumbnail/${challenges.thumbnail}`}
           alt="Challenge Thumbnail"
           className="w-full object-cover text-white"
         />

@@ -12,6 +12,7 @@ import LogDayRoute from "./routes/LogDayRoute.js";
 import ChallengeRoute from "./routes/ChallengeRoute.js";
 import ChallengeEntryRoute from "./routes/ChallengeEntryRoute.js";
 import UploadRoute from "./routes/uploadRoute.js";
+import ImageRoute from "./routes/thumbnailRoute.js";
 import path from "path";
 
 dotenv.config();
@@ -48,6 +49,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join("public/uploads")));
+app.use("/thumbnail", express.static(path.join("public/thumbnail")));
 
 app.use(UserRoute);
 app.use(RoleRoute);
@@ -57,6 +59,7 @@ app.use(ChallengeRoute);
 app.use(LogDayRoute);
 app.use(ChallengeEntryRoute);
 app.use(UploadRoute);
+app.use(ImageRoute);
 
 // store.sync();
 

@@ -25,7 +25,7 @@ export const getChallengeById = async (req, res) => {
 
 // Create new challenge
 export const createChallenge = async (req, res) => {
-  const { title, description, start_date, end_date, type, target, visibility } =
+  const { title, description, start_date, end_date, type, target, visibility, thumbnail } =
     req.body;
   try {
     const newChallenge = await Challenge.create({
@@ -36,6 +36,7 @@ export const createChallenge = async (req, res) => {
       type,
       target,
       visibility,
+      thumbnail,
     });
     res
       .status(201)
