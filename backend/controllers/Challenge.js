@@ -48,7 +48,7 @@ export const createChallenge = async (req, res) => {
 
 // Update challenge by ID
 export const updateChallenge = async (req, res) => {
-  const { title, description, start_date, end_date, type, target, visibility } =
+  const { title, description, start_date, end_date, type, target, visibility, thumbnail } =
     req.body;
   try {
     const challenge = await Challenge.findByPk(req.params.id);
@@ -61,6 +61,7 @@ export const updateChallenge = async (req, res) => {
     challenge.type = type;
     challenge.target = target;
     challenge.visibility = visibility;
+    challenge.thumbnail = thumbnail;
     const saveChallenge = await challenge.save();
     res
       .status(200)

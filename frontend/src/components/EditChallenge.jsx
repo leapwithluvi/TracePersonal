@@ -7,6 +7,7 @@ import axios from "axios";
 const FormEditChallenge = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
   const [thumbnail, setThumbnail] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -40,8 +41,28 @@ const FormEditChallenge = () => {
     getChallengeById();
   }, [id]);
 
+  const handleFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const updateChallenge = async (e) => {
     e.preventDefault();
+    let thumbnailFilename = thumbnail;
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("thumbnail", file);
+      const uploadRes = await axios.post(
+        "http://localhost:5000/image",
+        formData
+      );
+      if (!uploadRes.data.filename) {
+        setMsg("Gagal upload gambar thumbnail!");
+        return;
+      }
+      thumbnailFilename = uploadRes.data.filename;
+    }
+
     try {
       await axios.patch(`http://localhost:5000/challenges/${id}`, {
         title,
@@ -51,6 +72,7 @@ const FormEditChallenge = () => {
         type,
         target,
         visibility,
+        thumbnail: thumbnailFilename,
       });
       alert("Challenge berhasil diupdate!");
       navigate("/challenges");
@@ -89,15 +111,13 @@ const FormEditChallenge = () => {
     "link",
     "image",
   ];
+
   return (
     <section className="min-h-screen bg-[#F9F9F9] dark:bg-gray-900 flex items-center justify-center py-10">
       <div className="w-full max-w-2xl dark:bg-gray-800 p-8 shadow-2xl rounded-xl transform transition-all duration-300 hover:scale-[1.01] animate-fade-in">
-        <h2 className="text-2xl font-semibold mb-4 text-white">Edit Challenge</h2>
-
-        {/* <div className="bg-red-500 text-white px-4 py-2 rounded mb-4">
-          This is an error message
-        </div> */}
-
+        <h2 className="text-2xl font-semibold mb-4 text-white">
+          Edit Challenge
+        </h2>
         <form className="space-y-4" onSubmit={updateChallenge}>
           <input
             type="text"
@@ -108,7 +128,6 @@ const FormEditChallenge = () => {
             autoFocus
           />
 
-          {/* ReactQuill */}
           <div className="bg-white">
             <ReactQuill
               modules={modules}
@@ -120,12 +139,7 @@ const FormEditChallenge = () => {
           </div>
 
           <div className="flex items-start flex-col justify-start">
-            <label
-              for="start_date"
-              className="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
-            >
-              Start Challenge:
-            </label>
+            <label className="text-sm text-white">Start Challenge:</label>
             <input
               type="date"
               value={startDate}
@@ -135,12 +149,7 @@ const FormEditChallenge = () => {
           </div>
 
           <div className="flex items-start flex-col justify-start">
-            <label
-              for="end_date"
-              className="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
-            >
-              End Challenge:
-            </label>
+            <label className="text-sm text-white">End Challenge:</label>
             <input
               type="date"
               value={endDate}
@@ -150,12 +159,7 @@ const FormEditChallenge = () => {
           </div>
 
           <div className="flex items-start flex-col justify-start">
-            <label
-              for="type"
-              className="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
-            >
-              Type Challenge:
-            </label>
+            <label className="text-sm text-white">Type Challenge:</label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
@@ -169,12 +173,7 @@ const FormEditChallenge = () => {
           </div>
 
           <div className="flex items-start flex-col justify-start">
-            <label
-              for="target"
-              className="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
-            >
-              Target Challenge:
-            </label>
+            <label className="text-sm text-white">Target Challenge:</label>
             <input
               type="text"
               placeholder="Target Challenge (bisa membuat website)"
@@ -185,12 +184,7 @@ const FormEditChallenge = () => {
           </div>
 
           <div className="flex items-start flex-col justify-start">
-            <label
-              for="visibility"
-              className="text-sm text-black-700 dark:text-black-200 mr-2 text-white"
-            >
-              Visibility:
-            </label>
+            <label className="text-sm text-white">Visibility:</label>
             <select
               value={visibility}
               onChange={(e) => setVisibility(e.target.value)}
@@ -198,14 +192,21 @@ const FormEditChallenge = () => {
             >
               <option value="">-- Pilih Visibility --</option>
               <option value="public">Public</option>
-              <option value="private">Team</option>
+              <option value="team">Team</option>
             </select>
           </div>
 
-          {/* File input */}
+          {thumbnail && (
+            <img
+              src={`http://localhost:5000/thumbnail/${thumbnail}`}
+              alt="Thumbnail Preview"
+              className="w-40 h-40 object-cover rounded mb-2"
+            />
+          )}
+
           <input
             type="file"
-            onChange={(e) => setThumbnail(e.target.files[0])}
+            onChange={handleFile}
             accept="image/png, image/jpg, image/jpeg"
             className="block text-white"
           />
@@ -217,6 +218,7 @@ const FormEditChallenge = () => {
             Update
           </button>
         </form>
+        {msg && <div className="text-red-500 mt-2">{msg}</div>}
       </div>
     </section>
   );
